@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts --exec ts-node"
+    "clean": "rimraf ./dist",
+    "dev": "nodemon src/index.ts --exec ts-node",
+    "public": "ncp ./src/public/ ./dist/public/",
+    "views": "ncp ./src/views/ ./dist/views/",
+    "build": "npm run clean && tsc && npm run public && npm run views",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
