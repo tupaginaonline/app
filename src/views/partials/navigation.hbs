@@ -12,7 +12,7 @@
                         Inicio
 				     </a>
 				</li>
-				
+				{{#if user}}
                 <li >
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                        
@@ -48,6 +48,9 @@
                         </li>
                     </ul>
                 </li>
+				
+				{{#/if}}
+				
             </ul>
     
         </nav>	
