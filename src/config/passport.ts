@@ -9,19 +9,26 @@ async function authenticateUser(req:Request,email:string,password:string,done:Fu
 	
 	try{
 		
-		const conn = await getConnection();
+		const BD = `${process.env.PREFIJO_APP}${req.body.codigo}`;
+		
+		const conn = await getConnection(BD);
 		
 		const [result] = await conn.query("SELECT * from users where email = ?",[email]);
 		
-		const user = JSON.parse(JSON.stringify(result));
+		const userR = JSON.parse(JSON.stringify(result));
 		
-		if(user.length > 0){
+		if(userR.length > 0){
 			
 			// compare password
 			
-			if(await bcrypt.compare(password, user[0].password))
+			if(await bcrypt.compare(password, userR[0].password))
 			{
-				return done(null,user[0], req.flash('msgSuccess','Login success'));
+				
+				const user:IUser = userR[0];
+				
+				user.bd = BD;
+				
+				return done(null,user, req.flash('msgSuccess','Login success'));
 			}
 			
 		}
@@ -30,8 +37,7 @@ async function authenticateUser(req:Request,email:string,password:string,done:Fu
 		
 	}catch(e){
 		
-		
-		return done(null,false, req.flash('msgDanger',e.message));
+		return done(null,false, req.flash('msgDanger',"Error interno. comunicarse con soporte"));
 		
 	}
 	
@@ -47,22 +53,26 @@ passport.use(
 );
 
 passport.serializeUser( (user:IUser,done) => {
-	done(null,user.id);
+	done(null,user);
 });
 
-passport.deserializeUser( async(id,done):Promise<Function | void> => {
+passport.deserializeUser( async(u:IUser,done):Promise<Function | void> => {
 	
 	try{
 		
-		const conn = await getConnection();
+		const conn = await getConnection(u.bd);
 		
-		const [result] = await conn.query("SELECT * from users where id = ?",[id]);
+		const [result] = await conn.query("SELECT * from users where id = ?",[u.id]);
 		
 		const users = JSON.parse(JSON.stringify(result));
 		
 		if(users.length > 0){
 			
 			const user:IUser = users[0];
+			
+			user.bd = u.bd;
+			
+			//console.log(`user: ${user.bd}`);
 			
 			return done(null,user);
 		}else{

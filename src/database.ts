@@ -1,16 +1,13 @@
-import dotenv  from 'dotenv';
-dotenv.config();
-
 import mysql from 'mysql2/promise';
 
-export async function getConnection():Promise<mysql.Connection> {
+export async function getConnection(nameDB:string | undefined):Promise<mysql.Connection> {
 	
 	const conex = await mysql.createConnection({
 		
-		host:process.env.HOST_CLEVER_CLOUD,
-		user:process.env.USER_CLEVER_CLOUD,
-		password:process.env.PASSWORD_CLEVER_CLOUD,
-        database:process.env.DATABASE_CLEVER_CLOUD,
+		host:process.env.HOST_LOCAL,
+		user:process.env.USER_LOCAL,
+		password:process.env.PASSWORD_LOCAL,
+        database:nameDB,
 		connectionLimit:10
 		
 	});

@@ -5,15 +5,15 @@ signup,
 signupRender,
 logout} from '../controllers/auth.controller'
 
-import {checkAuthenticate} from '../middlewares/authenticate';
+import {authenticate,checkAuthenticate} from '../middlewares/authenticate';
 
 const router = Router();
 
 router.get('/login',checkAuthenticate, signinRender);
 router.post('/login',checkAuthenticate, signin);
 
-router.get('/registro',checkAuthenticate, signupRender);
-router.post('/registro',checkAuthenticate, signup);
+router.get('/registro',authenticate, signupRender);
+router.post('/registro',authenticate, signup);
 
 router.delete('/logout', logout);
 

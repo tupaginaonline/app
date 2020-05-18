@@ -1,0 +1,50 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Cargos</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/">Inicio</a>
+                </li>
+                <li class="active">
+                    <strong>Cargos</strong>
+                </li>
+            </ol>
+        </div>
+</div>
+
+<div class="container mt-2">
+<a href="/cargos/nuevo" class="btn btn-primary">Nuevo</a>
+</div>
+
+<div class="container mt-3 bg-light p-2">
+
+<table id="cargos" class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Sueldo</th>
+      <th scope="col">Sueldovar</th>
+	  <th scope="col">Descripción</th>
+	  <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody id="cargostable">
+  {{#each results}}
+    <tr>
+      <th scope="row">{{id}}</th>
+      <td>{{UpperCase nombre}}</td>
+      <td>{{UpperCase sueldo}}</td>
+      <td>{{UpperCase sueldovar}}</td>
+	  <td>{{UpperCase descripcion}}</td>
+	   <td><a class="text-primary" href="/cargos/{{id}}">Editar</a></td>
+    </tr>
+  {{/each}} 
+  </tbody>
+</table>
+
+
+
+
+
+</div>

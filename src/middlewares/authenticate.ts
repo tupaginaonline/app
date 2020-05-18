@@ -17,3 +17,17 @@ export const checkAuthenticate = (req:Request, res:Response ,next:Function ): Fu
 	
    return next();
  }
+ 
+ 
+export function authRole(roles:string[]){	
+	return(				
+				(req:any,res:Response,next:Function) => {
+					
+					if(roles.find( role => { return  req.user.role==role   })) return next();
+					
+					req.flash('msgWarning','Unauthorized...');
+					
+					return res.redirect('/');					
+				}	
+	)	
+}

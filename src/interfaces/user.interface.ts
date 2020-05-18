@@ -1,5 +1,7 @@
 export interface IUser{
    id?:number;
    email:string;
-   password:string
+   password:string;
+   role:string;
+   bd:string;
 }

@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import express, {Application} from 'express';
 import morgan from 'morgan';
 import exphbs from 'express-handlebars';
@@ -9,14 +6,21 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import passport from 'passport';
 import methodOverride from 'method-override';
- 
-import {authenticate} from './middlewares/authenticate';
 
+import {getConnection} from './database';
+import {authenticate,authRole} from './middlewares/authenticate';
+
+import {helpersFunctions} from './helpers';
 import  './config/passport';
 
-
-// Routes
+// Routes Imports
 import authRoutes from './routes/authRoutes'
+import cargosRoutes from './routes/cargosRoutes'
+import tiposNominasRoutes from './routes/tiposNominasRoutes'
+import departamentosRoutes from './routes/departamentosRoutes'
+import sexoRoutes from './routes/sexoRoutes'
+import grupoSanguineoRoutes from './routes/grupoSanguineoRoutes'
+import estadoCivilRoutes from './routes/estadoCivilRoutes'
 
 // Controllers
 import {indexController} from './controllers/index.controller';
@@ -33,10 +37,12 @@ app.engine('.hbs', exphbs({
 	defaultLayout: 'main',
 	layoutsDir: path.join(app.get('views'),'layouts'),
 	partialsDir:path.join(app.get('views'),'partials'),
-	extname:'.hbs'
+	extname:'.hbs',
+	helpers: helpersFunctions
 }));
 
 app.set('view engine', '.hbs');
+
 
 // Middlewares
 
@@ -71,11 +77,19 @@ app.use((req:express.Request, res:express.Response, next:Function):Function => {
 
 app.get('/', indexController);
 app.use(authRoutes);
+app.use(cargosRoutes);
+app.use(tiposNominasRoutes);
+app.use(departamentosRoutes);
+app.use(sexoRoutes);
+app.use(grupoSanguineoRoutes);
+app.use(estadoCivilRoutes);
 
-app.get('/usuarios', authenticate , (req:any, res:express.Response ) => {
-	
+app.get('/usuarios', authenticate, authRole(['superusuario','administrador']), (req:any, res:express.Response ) => {
 	res.render('usuarios');
 });
+
+
+
 
 // Static files
 

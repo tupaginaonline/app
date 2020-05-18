@@ -1,18 +1,13 @@
 <!-- Sidebar  -->
     <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>N&oacute;mina<span style="font-size:12px">2020</span>&nbsp;<span style="font-size:10px"><i>ver 1.0</i></span></h3>
-                <strong>N</strong>
+               <img src="/public/images/logo.png" class="img-fluid" style="width:180px" >
             </div>
     
             <ul class="list-unstyled components">
-			    <li class="active">
-				    <a href="/">
-					 <i class="fas fa-home" ></i>
-                        Inicio
-				     </a>
-				</li>
-				{{#if user}}
+			    {{#if user}}
+				 
+				
                 <li >
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                        
@@ -65,6 +60,44 @@
                             <a href="#">Item 3</a>
                         </li>
                     </ul>
+                </li>
+				
+				<li>
+                   
+                    <a href="#pageMantenimiento" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        
+                        Mantenimiento
+                    </a>
+                    <ul class="collapse list-unstyled" id="pageMantenimiento">
+                        <li>
+                            <a href="/cargos">Cargos</a>
+                        </li>
+						<li>
+                            <a href="/tipos-nominas">Tipos Nomina</a>
+                        </li>
+						<li>
+                            <a href="/departamentos">Departamentos</a>
+                        </li>
+						<li>
+                            <a href="/sexo">Sexo</a>
+                        </li>
+						
+						<li>
+                            <a href="/grupos-sanguineos">Grupos Sanguineos</a>
+                        </li>
+						
+						<li>
+                            <a href="/estado-civil">Estado civil</a>
+                        </li>
+                     </ul>
+                </li>
+				
+				<li >
+							
+						<form action="/logout?_method=DELETE" method="POST">
+							<button type="submit"  class="nav-link btn btn-xs btn-none text-warning font-weight-bold">Cerrar sesi&oacute;n</button>
+						</form>
+                               
                 </li>
 				
 				 

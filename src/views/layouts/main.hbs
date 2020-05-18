@@ -7,17 +7,8 @@
 	<link href="/public/css/bootstrap.min.css" rel=stylesheet />
 	<!-- Custom Css -->
 	<link href="/public/css/style.css" rel=stylesheet />
-	
-	<!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-	
-	<script defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-	<script defer src="/public/js/custom.js" ></script>
-	
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel=stylesheet />
 </head>
 <body>
 <div class="wrapper">
@@ -29,15 +20,18 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                    </button>
-					{{#if user}}
-					<button type="button" id="sidebarCollapse" class="btn btn-outline-info ml-3">
-                        <i class="fas fa-plus" title="Nueva n&oacute;mina"></i>
-						<span>Nueva n&oacute;mina</span>
-                    </button>
-					{{/if}}
+                   
+					<a id="sidebarCollapse" title="" data-toggle="tooltip" data-placement="bottom"><i class="material-icons " style="color:#1783fa; font-size:35px; cursor:pointer">restore_page</i></a>
+				
+					<a href="/" title="Inicio" data-toggle="tooltip" data-placement="bottom"><i class="material-icons ml-3 pl-2 pr-2 active-bar" style="color:#1783fa; font-size:35px;">home</i></a>
+					 
+					<a href="/" title="Nueva Nomina" data-toggle="tooltip" data-placement="bottom"><i class="material-icons ml-3 pl-2 pr-2" style="color:#1783fa; font-size:35px;">note_add</i></a>
+					
+					<a href="/" title="Nueva Nomina" data-toggle="tooltip" data-placement="bottom"><i class="material-icons ml-3 pl-2 pr-2" style="color:#1783fa; font-size:35px;">payment</i></a>
+					
+					<a href="/" title="Nueva Nomina" data-toggle="tooltip" data-placement="bottom"><i class="material-icons ml-3 pl-2 pr-2" style="color:#1783fa; font-size:35px;">group_work</i></a>
+					
+					
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
@@ -46,25 +40,16 @@
                         <ul class="nav navbar-nav ml-auto">
 						
 						{{#if user}}
-							<li class="nav-item active">
-                                <a class="nav-link" href="#">Bienvenido, {{user.email}}</a>
-                            </li>						
-							<li class="nav-item ">
-							
-							<form action="/logout?_method=DELETE" method="POST">
-							
-							   <button type="submit"  class="nav-link btn btn-small btn-outline-warning ">Salir</button>
-							</form>
-                               
-                            </li>
-							
+													
+						<li class="nav-item">
+								<a class="nav-link" href="/perfil" style="color:#222">{{user.email}}</a>
+						</li>	
+							 
 						{{else}}	
 						    <li class="nav-item active">
-                                <a class="nav-link" href="/login">Login</a>
+                                <a class="nav-link" href="/login" >Login</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/registro">Registro</a>
-                            </li>	
+                           
 						{{/if}}
 						
                             
@@ -73,8 +58,9 @@
                     </div>
                 </div>
             </nav>
-                             
-			{{#if msgSuccess}} 
+              
+           <div class="container">
+		   {{#if msgSuccess}} 
 			    <div class="alert alert-success">{{msgSuccess}}</div>
 			{{/if}}
 			
@@ -85,13 +71,30 @@
 			{{#if msgWarning}} 
 			    <div class="alert alert-warning">{{msgWarning}}</div>
 			{{/if}}
-			
-            {{{body}}}
+		   {{{body}}}
+		   </div>
 			
         </div>
     </div>
 
-   
+	
+	<script  src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+	
+	
+    <script  src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+	
+	<script  src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	
+	
+	
+	<script  src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" ></script>
+	<script  src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" ></script>
+
+	
+	<script  src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script  src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<script  src="/public/js/custom.js" ></script>  
 </body>
 
 </html>

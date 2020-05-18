@@ -19,7 +19,8 @@ export  const signupRender = (req:Request, res:Response): void => {
 }
 
 
-export  const signup = async(req:Request, res:Response): Promise<void> => {
+export  const signup = async(req:any, res:Response): Promise<Response | void> => {
+	
 	
 	const { email, password } = req.body;
 	
@@ -31,8 +32,8 @@ export  const signup = async(req:Request, res:Response): Promise<void> => {
 			return res.redirect("/registro");
 		}
 		
-		const conn = await getConnection();
-	
+		const conn = await getConnection(req.user.bd);
+		
 		const [result] = await conn.query("SELECT * FROM users where email = ?",[email]);
 		
 		const user = JSON.parse(JSON.stringify(result));
@@ -66,6 +67,6 @@ const newUser = await conn.query("INSERT INTO users (email,password) values (?,?
 export const logout = (req:Request, res:Response): Response | void => {
 	
 	req.logout();
-	
+	req.flash('msgSuccess','Se ha cerrado la sesión correctamente!!');
 	return res.redirect('/');
 }
